@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 require_relative '../../lib/heroku_gandi_dns/zone_manager'
 
-describe ZoneManager do
+describe HerokuGandiDns::ZoneManager do
 
   # describe 'given Gandi::Session' do
   describe 'constructed with session and domain' do
@@ -13,11 +13,11 @@ describe ZoneManager do
     let(:zone) { mock }
 
     before do
-      @manager = ZoneManager.new(domain)
+      @manager = HerokuGandiDns::ZoneManager.new(domain)
     end
 
     it 'should exist' do
-      assert_equal @manager.class, ZoneManager
+      assert_equal @manager.class, HerokuGandiDns::ZoneManager
     end
 
     describe 'asked for zone matching ip address' do
