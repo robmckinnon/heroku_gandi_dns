@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/heroku_gandi_dns/ip_list'
+require_relative '../../spec_helper'
+require_relative '../../../lib/heroku_gandi_dns/ip_list'
 
 describe HerokuGandiDns::IpList do
 

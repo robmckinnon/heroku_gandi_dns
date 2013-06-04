@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/heroku_gandi_dns/zone_manager'
+require_relative '../../spec_helper'
+require_relative '../../../lib/heroku_gandi_dns/zone_manager'
 
 describe HerokuGandiDns::ZoneManager do
 
