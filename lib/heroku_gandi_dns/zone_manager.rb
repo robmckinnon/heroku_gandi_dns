@@ -14,7 +14,7 @@ module HerokuGandiDns
     private
 
     def zones
-      @domain.zones
+      @domain.zone_versions_with_single_a_record
     end
   end
 

@@ -3,14 +3,11 @@ require_relative '../../../lib/heroku_gandi_dns/zone_manager'
 
 describe HerokuGandiDns::ZoneManager do
 
-  # describe 'given Gandi::Session' do
   describe 'constructed with session and domain' do
 
-    # let(:session)    { mock }
-    let(:domain)     { mock }
-    # let(:domain_api) { mock }
-    let(:ip_address) { mock }
-    let(:zone) { mock }
+    let(:domain)       { mock }
+    let(:ip_address)   { mock }
+    let(:zone_version) { mock }
 
     before do
       @manager = HerokuGandiDns::ZoneManager.new(domain)
@@ -22,16 +19,16 @@ describe HerokuGandiDns::ZoneManager do
 
     describe 'asked for zone matching ip address' do
       before do
-        domain.expects(:zones).returns [zone]
+        domain.expects(:zone_versions_with_single_a_record).returns [zone_version]
       end
 
       it 'should return match' do
-        zone.expects(:ip_address).returns ip_address
-        assert_equal @manager.zone_for_ip(ip_address), zone
+        zone_version.expects(:ip_address).returns ip_address
+        assert_equal @manager.zone_for_ip(ip_address), zone_version
       end
 
       it 'should return nil when no match' do
-        zone.expects(:ip_address).returns ''
+        zone_version.expects(:ip_address).returns ''
         assert_nil @manager.zone_for_ip(ip_address)
       end
     end
