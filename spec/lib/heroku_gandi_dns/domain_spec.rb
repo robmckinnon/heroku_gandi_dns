@@ -11,7 +11,7 @@ describe HerokuGandiDns::Domain do
   describe 'after initialized' do
 
     it 'should have zone' do
-      zone = stub(versions_with_single_a_record: [version])
+      zone = stub(zone_versions_with_single_a_record: [version])
 
       HerokuGandiDns::Zone.expects(:new).with(session, zone_id).returns zone
       session.expects(:zone_id).with(domain).returns zone_id
@@ -19,6 +19,9 @@ describe HerokuGandiDns::Domain do
       the_domain = HerokuGandiDns::Domain.new(session, domain)
       the_domain.zone.must_equal zone
       the_domain.zone_versions_with_single_a_record.must_equal [version]
+
+      zone.expects(:set_zone_version).with(version)
+      the_domain.set_zone_version(version)
     end
   end
 

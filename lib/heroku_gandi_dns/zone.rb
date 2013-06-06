@@ -12,8 +12,12 @@ module HerokuGandiDns
       refresh_versions
     end
 
-    def versions_with_single_a_record
-      @versions.select {|v| v.single_a_record?}
+    def zone_versions_with_single_a_record
+      @versions.select { |v| v.single_a_record? }
+    end
+
+    def set_zone_version zone_version
+      @session.set_zone_version @zone_id, zone_version.version_id
     end
 
     private

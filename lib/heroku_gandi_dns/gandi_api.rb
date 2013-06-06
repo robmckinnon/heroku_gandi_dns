@@ -27,6 +27,10 @@ module HerokuGandiDns
     def record_list zone_id, version_id
       @api.domain.zone.record.list(zone_id, version_id)
     end
+
+    def set_zone_version zone_id, version_id
+      domain.zone.version.set(apikey, zone_id, version_id)
+    end
   end
 
 end
