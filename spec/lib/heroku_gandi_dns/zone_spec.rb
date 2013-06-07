@@ -6,9 +6,6 @@ describe HerokuGandiDns::Zone do
   let(:zone_id) { mock }
   let(:session) { mock }
 
-  let(:version_id)   { mock }
-  let(:zone_version) { stub version_id: version_id }
-
   describe 'after initialized' do
 
     before do
@@ -26,9 +23,25 @@ describe HerokuGandiDns::Zone do
     end
 
     describe 'asked to set_zone_version' do
-      it 'should set zone version' do
-        session.expects(:set_zone_version).with(zone_id, version_id)
-        @zone.set_zone_version zone_version
+
+      let(:zone_version) { stub version_id: 1 }
+
+      describe 'and current zone version is the same' do
+        it 'should not set zone version' do
+          session.expects(:zone_version_id).with(zone_id).returns 1
+
+          session.expects(:set_zone_version).never
+          @zone.set_zone_version zone_version
+        end
+      end
+
+      describe 'and current zone version is different' do
+        it 'should set zone version' do
+          session.expects(:zone_version_id).with(zone_id).returns 2
+
+          session.expects(:set_zone_version).with(zone_id, zone_version.version_id)
+          @zone.set_zone_version zone_version
+        end
       end
     end
   end

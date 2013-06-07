@@ -17,10 +17,16 @@ module HerokuGandiDns
     end
 
     def set_zone_version zone_version
-      @session.set_zone_version @zone_id, zone_version.version_id
+      unless current_zone_version_id == zone_version.version_id
+        @session.set_zone_version @zone_id, zone_version.version_id
+      end
     end
 
     private
+
+    def current_zone_version_id
+      @session.zone_version_id(@zone_id)
+    end
 
     def refresh_versions
       @versions = version_ids.map do |version_id|

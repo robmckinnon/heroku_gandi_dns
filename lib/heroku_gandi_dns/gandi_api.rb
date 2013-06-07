@@ -20,6 +20,10 @@ module HerokuGandiDns
       @api.domain.zone.info(zone_id)
     end
 
+    def zone_version_id zone_id
+      zone_info(zone_id).version
+    end
+
     def zone_version_ids zone_id
       zone_info(zone_id).versions
     end
@@ -31,6 +35,7 @@ module HerokuGandiDns
     def set_zone_version zone_id, version_id
       domain.zone.version.set(apikey, zone_id, version_id)
     end
+
   end
 
 end
