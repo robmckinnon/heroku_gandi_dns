@@ -21,11 +21,12 @@ describe HerokuGandiDns do
     let(:heroku_domain) { stub }
     let(:custom_domain) { stub }
     let(:gandi_api_key) { stub }
+    let(:ttl_secs)      { '1800' }
 
     describe 'with params' do
 
       before do
-        ARGV = [heroku_domain, custom_domain, gandi_api_key]
+        ARGV = [heroku_domain, custom_domain, gandi_api_key, ttl_secs]
       end
       after do
         ARGV = []
@@ -33,7 +34,7 @@ describe HerokuGandiDns do
 
       it 'should call do_update_dns' do
         HerokuGandiDns.expects(:puts_usage).never
-        HerokuGandiDns.expects(:do_update_dns).with(heroku_domain, custom_domain, gandi_api_key)
+        HerokuGandiDns.expects(:do_update_dns).with(heroku_domain, custom_domain, gandi_api_key, Integer(ttl_secs) )
         HerokuGandiDns.update_dns
       end
     end
@@ -53,9 +54,9 @@ describe HerokuGandiDns do
 
         HerokuGandiDns::IpList.expects(:new).with(heroku_domain).returns stub(ip_address: ip_address)
 
-        zone_manager.expects(:set_zone_for_ip).with(ip_address)
+        zone_manager.expects(:set_zone_for_ip).with(ip_address, ttl_secs)
 
-        HerokuGandiDns.do_update_dns(heroku_domain, custom_domain, gandi_api_key)
+        HerokuGandiDns.do_update_dns(heroku_domain, custom_domain, gandi_api_key, ttl_secs)
       end
     end
   end

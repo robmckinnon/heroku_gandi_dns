@@ -7,24 +7,24 @@ module HerokuGandiDns
 
   class << self
     def update_dns
-      if ARGV.size == 3
-        do_update_dns ARGV[0], ARGV[1], ARGV[2]
+      if ARGV.size == 4
+        do_update_dns ARGV[0], ARGV[1], ARGV[2], Integer(ARGV[3])
       else
         puts usage
       end
     end
 
-    def do_update_dns heroku_domain, custom_domain, gandi_api_key
+    def do_update_dns heroku_domain, custom_domain, gandi_api_key, ttl_secs
       manager = HerokuGandiDns::ZoneManager.new domain(custom_domain, gandi_api_key)
 
-      manager.set_zone_for_ip ip_address(heroku_domain)
+      manager.set_zone_for_ip ip_address(heroku_domain), ttl_secs
     end
 
     def usage
       ['',
-      'usage: ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key>',
+      'usage: ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key> <ttl_secs>',
       '',
-      ' e.g.: ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7',
+      ' e.g.: ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7 1800',
       ''].join("\n")
     end
 

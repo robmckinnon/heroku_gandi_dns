@@ -48,8 +48,8 @@ module HerokuGandiDns
       end
     end
 
-    def add_a_record zone_id, version_id, ip_address
-      params = { name: '@', type: 'A', value: ip_address, ttl: 1800 }
+    def add_a_record zone_id, version_id, ip_address, ttl_secs
+      params = { name: '@', type: 'A', value: ip_address, ttl: ttl_secs }
       domain.zone.record.add zone_id, version_id, params
     end
 
