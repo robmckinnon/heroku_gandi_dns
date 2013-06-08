@@ -4,7 +4,7 @@ module HerokuGandiDns
 
   class Zone
 
-    attr_reader :versions
+    attr_reader :versions, :zone_id
 
     def initialize session, zone_id
       @session = session

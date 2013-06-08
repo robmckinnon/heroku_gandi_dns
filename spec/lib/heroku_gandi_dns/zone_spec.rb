@@ -16,6 +16,10 @@ describe HerokuGandiDns::Zone do
       @zone = HerokuGandiDns::Zone.new(session, zone_id)
     end
 
+    it 'should have zone_id' do
+      @zone.zone_id.must_equal zone_id
+    end
+
     it 'should have versions' do
       @zone.versions.size.must_equal 2
       @zone.zone_versions_with_single_a_record.size.must_equal 1
