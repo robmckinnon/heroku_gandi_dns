@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:robmckinnon/gandi.git
+  remote: https://github.com/robmckinnon/gandi.git
   revision: 8eecab97367e150a67333e0ffb88e6aefaeae141
   branch: fix_invoking_clone_or_new
   specs:
