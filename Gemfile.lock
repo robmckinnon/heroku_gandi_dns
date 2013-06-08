@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:robmckinnon/gandi.git
+  revision: 8eecab97367e150a67333e0ffb88e6aefaeae141
+  branch: fix_invoking_clone_or_new
+  specs:
+    gandi (2.0.7)
+      hashie
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -15,8 +23,6 @@ GEM
       thor
     ffi (1.8.1)
     formatador (0.2.4)
-    gandi (2.0.7)
-      hashie
     guard (1.8.0)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -67,7 +73,7 @@ PLATFORMS
 
 DEPENDENCIES
   coveralls
-  gandi
+  gandi!
   guard-minitest
   mocha
   morph (>= 0.3.6)

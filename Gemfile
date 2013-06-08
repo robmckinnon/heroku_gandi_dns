@@ -11,4 +11,4 @@ end
 
 gem 'morph', '>= 0.3.6'
 gem 'net-dns'
-gem 'gandi'
+gem 'gandi', :git => "git@github.com:robmckinnon/gandi.git", :branch => "fix_invoking_clone_or_new"
