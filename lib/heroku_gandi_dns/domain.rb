@@ -16,5 +16,9 @@ module HerokuGandiDns
       @zone = Zone.new(session, zone_id)
     end
 
+    def create_zone_version ip_address
+      zone_version = @zone.clone_current_zone_version
+    end
+
   end
 end

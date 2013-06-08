@@ -12,12 +12,15 @@ module HerokuGandiDns
     end
 
     def set_zone_for_ip ip_address
-      if version = zone_version_for_ip(ip_address)
-        @domain.set_zone_version(version)
-      end
+      zone_version = obtain_zone_version(ip_address)
+      @domain.set_zone_version zone_version
     end
 
     private
+
+    def obtain_zone_version ip_address
+      zone_version_for_ip(ip_address) || @domain.create_zone_version(ip_address)
+    end
 
     def zone_versions
       @domain.zone_versions_with_single_a_record

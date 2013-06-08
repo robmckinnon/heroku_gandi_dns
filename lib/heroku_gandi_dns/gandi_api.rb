@@ -33,7 +33,13 @@ module HerokuGandiDns
     end
 
     def set_zone_version zone_id, version_id
-      domain.zone.version.set(apikey, zone_id, version_id)
+      @api.domain.zone.version.set(apikey, zone_id, version_id)
+    end
+
+    # returns new zone version id
+    def clone_current_zone_version zone_id
+      zone_info = @api.domain.zone.clone(zone_id)
+      zone_info.version
     end
 
   end

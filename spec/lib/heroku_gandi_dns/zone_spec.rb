@@ -44,6 +44,15 @@ describe HerokuGandiDns::Zone do
         end
       end
     end
+
+    describe 'asked to clone_current_zone_version' do
+      it 'should clone current' do
+        version_id = 3
+        session.expects(:clone_current_zone_version).with(zone_id).returns version_id
+        @zone.expects(:initialize_version).with(version_id)
+        @zone.clone_current_zone_version
+      end
+    end
   end
 
 end

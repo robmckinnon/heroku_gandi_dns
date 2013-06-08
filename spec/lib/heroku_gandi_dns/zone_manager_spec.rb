@@ -41,6 +41,19 @@ describe HerokuGandiDns::ZoneManager do
           @manager.set_zone_for_ip ip_address
         end
       end
+
+      describe 'and there is no existing zone_version_for_ip' do
+        before do
+          @manager.expects(:zone_version_for_ip).returns nil
+        end
+
+        it 'should create new zone version and set it' do
+          domain.expects(:create_zone_version).with(ip_address).returns zone_version
+          domain.expects(:set_zone_version).with(zone_version)
+
+          @manager.set_zone_for_ip ip_address
+        end
+      end
     end
   end
 end

@@ -21,8 +21,6 @@ module HerokuGandiDns
       a_records.size == 1
     end
 
-    private
-
     def a_records
       @records.select {|r| r.type == 'A'}
     end

@@ -22,6 +22,11 @@ module HerokuGandiDns
       end
     end
 
+    def clone_current_zone_version
+      version_id = @session.clone_current_zone_version @zone_id
+      initialize_version version_id
+    end
+
     private
 
     def current_zone_version_id
@@ -30,7 +35,7 @@ module HerokuGandiDns
 
     def refresh_versions
       @versions = version_ids.map do |version_id|
-        HerokuGandiDns::ZoneVersion.new version_id, record_list(version_id)
+        initialize_version version_id
       end
     end
 
@@ -40,6 +45,10 @@ module HerokuGandiDns
 
     def version_ids
       @session.zone_version_ids(@zone_id)
+    end
+
+    def initialize_version version_id
+      HerokuGandiDns::ZoneVersion.new version_id, record_list(version_id)
     end
 
   end
