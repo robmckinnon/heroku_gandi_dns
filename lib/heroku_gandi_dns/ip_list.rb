@@ -9,7 +9,7 @@ module HerokuGandiDns
     def initialize uri
       resolver = Net::DNS::Resolver.start(uri, Net::DNS::A)
       @ips = []
-      resolver.each_address { |ip| @ips << ip }
+      resolver.each_address { |ip| @ips << ip.to_string }
     end
   end
 
