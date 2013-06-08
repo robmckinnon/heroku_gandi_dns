@@ -22,9 +22,9 @@ module HerokuGandiDns
 
     def usage
       ['',
-      'usage: ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key> <ttl_secs>',
+      'usage: bundle exec ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key> <ttl_secs>',
       '',
-      ' e.g.: ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7 1800',
+      ' e.g.: bundle exec ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7 1800',
       ''].join("\n")
     end
 
@@ -39,8 +39,11 @@ module HerokuGandiDns
     end
 
     def gandi_session gandi_api_key
-      Gandi::Session.new gandi_api_key, 'https://rpc.gandi.net/xmlrpc/'
+      session = Gandi::Session.new gandi_api_key, 'https://rpc.gandi.net/xmlrpc/'
+      HerokuGandiDns::GandiApi.new(session)
     end
-
   end
 end
+
+
+HerokuGandiDns.update_dns

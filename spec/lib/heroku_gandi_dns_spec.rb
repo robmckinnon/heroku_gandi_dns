@@ -41,13 +41,17 @@ describe HerokuGandiDns do
 
     describe 'via do_update_dns' do
       let(:session)    { stub }
+      let(:api_session){ stub }
       let(:domain)     { stub }
       let(:ip_address) { stub }
       let(:zone_manager) { stub }
 
       it 'should connect to Gandi api and update dns' do
 
-        Gandi::Session.expects(:new).with(gandi_api_key, 'https://rpc.gandi.net/xmlrpc/').returns session
+        Gandi::Session.expects(:new).with(gandi_api_key, 'https://rpc.gandi.net/xmlrpc/').returns api_session
+
+        HerokuGandiDns::GandiApi.expects(:new).with(api_session).returns session
+
         HerokuGandiDns::Domain.expects(:new).with(session, custom_domain).returns domain
 
         HerokuGandiDns::ZoneManager.expects(:new).with(domain).returns zone_manager
