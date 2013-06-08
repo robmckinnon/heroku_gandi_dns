@@ -50,4 +50,15 @@ describe HerokuGandiDns::ZoneVersion do
     end
   end
 
+  describe 'with multiple A records' do
+    let(:records)    { [stub(type: 'A', value: ip_address), stub(type: 'A', value: mock)] }
+
+    it 'should have single_a_record? false' do
+      @version.single_a_record?.must_equal false
+    end
+
+    it 'should have ip_address correct' do
+      proc { @version.ip_address }.must_raise(RuntimeError)
+    end
+  end
 end
