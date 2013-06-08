@@ -31,10 +31,13 @@ describe HerokuGandiDns::Domain do
 
   describe 'asked to create_zone_version for ip_address' do
     let(:ip_address) { stub }
+    let(:version_id) { stub }
 
-    it 'should clone current zone version, delete a records' do
-      zone.expects(:clone_current_zone_version).returns stub(version_id: 456, a_record_ids: [123])
-      session.expects(:delete_records).with(zone_id, 456, [123])
+    it 'should clone current zone version, delete a records, add new a record' do
+      zone.expects(:clone_current_zone_version).returns stub(version_id: version_id, a_record_ids: [123])
+      session.expects(:delete_records).with(zone_id, version_id, [123])
+
+      session.expects(:add_a_record).with(zone_id, version_id, ip_address)
 
       @domain.create_zone_version ip_address
     end

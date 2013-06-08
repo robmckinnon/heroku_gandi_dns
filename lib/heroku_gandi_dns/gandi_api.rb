@@ -44,8 +44,13 @@ module HerokuGandiDns
 
     def delete_records zone_id, version_id, record_ids
       record_ids.each do |record_id|
-        @api.domain.zone.record.delete(zone_id, version_id, record_id)
+        @api.domain.zone.record.delete(zone_id, version_id, id: record_id)
       end
+    end
+
+    def add_a_record zone_id, version_id, ip_address
+      params = { name: '@', type: 'A', value: ip_address, ttl: 1800 }
+      domain.zone.record.add zone_id, version_id, params
     end
 
   end
