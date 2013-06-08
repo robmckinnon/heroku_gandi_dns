@@ -5,6 +5,7 @@ group :test do
   gem 'guard-minitest'
   gem 'turn'
   gem 'mocha'
+  gem 'coveralls', require: false
 end
 
 gem 'morph', '>= 0.3.6'
