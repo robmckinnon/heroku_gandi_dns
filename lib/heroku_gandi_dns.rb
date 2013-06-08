@@ -10,7 +10,7 @@ module HerokuGandiDns
       if ARGV.size == 3
         do_update_dns ARGV[0], ARGV[1], ARGV[2]
       else
-        puts_usage
+        puts usage
       end
     end
 
@@ -18,6 +18,14 @@ module HerokuGandiDns
       manager = HerokuGandiDns::ZoneManager.new domain(custom_domain, gandi_api_key)
 
       manager.set_zone_for_ip ip_address(heroku_domain)
+    end
+
+    def usage
+      ['',
+      'usage: ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key>',
+      '',
+      ' e.g.: ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7',
+      ''].join("\n")
     end
 
     private
@@ -34,12 +42,5 @@ module HerokuGandiDns
       Gandi::Session.new gandi_api_key, 'https://rpc.gandi.net/xmlrpc/'
     end
 
-    def puts_usage
-      puts ''
-      puts 'usage: ruby lib/heroku_gandi_dns.rb <heroku_domain> <custom_domain> <gandi_api_key>'
-      puts ''
-      puts ' e.g.: ruby lib/heroku_gandi_dns.rb yourapp.herokuapp.com yourapp.com eXAMP1EkEY7'
-      puts ''
-    end
   end
 end

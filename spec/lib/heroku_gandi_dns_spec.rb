@@ -3,10 +3,17 @@ require_relative '../../lib/heroku_gandi_dns'
 
 describe HerokuGandiDns do
 
+  describe 'usage' do
+    it 'is available' do
+      HerokuGandiDns.usage.must_be_kind_of String
+    end
+  end
+
   describe 'asked to update' do
+
     describe 'without params' do
       it 'should print usage' do
-        HerokuGandiDns.expects(:puts_usage).at_least_once
+        HerokuGandiDns.expects(:puts).with(HerokuGandiDns.usage).at_least_once
         HerokuGandiDns.update_dns
       end
     end
