@@ -29,4 +29,13 @@ describe HerokuGandiDns::Domain do
     @domain.set_zone_version(version)
   end
 
+  describe 'asked to create_zone_version for ip_address' do
+    let(:ip_address) { stub }
+
+    it 'should clone current zone version' do
+      zone.expects(:clone_current_zone_version)
+      @domain.create_zone_version ip_address
+    end
+
+  end
 end
