@@ -25,6 +25,10 @@ module HerokuGandiDns
       @records.select {|r| r.type == 'A'}
     end
 
+    def a_record_ids
+      a_records.map { |a| a.id }
+    end
+
   end
 
 end

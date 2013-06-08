@@ -11,7 +11,7 @@ describe HerokuGandiDns::ZoneVersion do
   end
 
   describe 'after initialized' do
-    let(:records)    { mock }
+    let(:records)    { [stub(type: 'A', id: 123)] }
 
     it 'should have version_id' do
       @version.version_id.must_equal version_id
@@ -19,6 +19,10 @@ describe HerokuGandiDns::ZoneVersion do
 
     it 'should have records' do
       @version.records.must_equal records
+    end
+
+    it 'should have a_record_ids' do
+      @version.a_record_ids.must_equal [123]
     end
   end
 

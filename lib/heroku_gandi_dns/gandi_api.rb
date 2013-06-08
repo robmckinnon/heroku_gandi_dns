@@ -42,6 +42,12 @@ module HerokuGandiDns
       zone_info.version
     end
 
+    def delete_records zone_id, version_id, record_ids
+      record_ids.each do |record_id|
+        @api.domain.zone.record.delete(zone_id, version_id, record_id)
+      end
+    end
+
   end
 
 end
