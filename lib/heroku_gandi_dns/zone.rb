@@ -17,7 +17,9 @@ module HerokuGandiDns
     end
 
     def set_zone_version zone_version
-      unless current_zone_version_id == zone_version.version_id
+      if current_zone_version_id == zone_version.version_id
+        puts 'no change to IP address'
+      else
         @session.set_zone_version @zone_id, zone_version.version_id
       end
     end
