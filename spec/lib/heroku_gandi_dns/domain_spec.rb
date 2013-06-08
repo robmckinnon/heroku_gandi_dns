@@ -7,7 +7,7 @@ describe HerokuGandiDns::Domain do
   let(:session) { stub }
   let(:zone_id) { stub }
   let(:version) { stub }
-  let(:zone) { stub(zone_versions_with_single_a_record: [version]) }
+  let(:zone) { stub(zone_versions_with_single_a_record: [version], zone_id: zone_id) }
 
   before do
     HerokuGandiDns::Zone.expects(:new).with(session, zone_id).returns zone
@@ -32,8 +32,11 @@ describe HerokuGandiDns::Domain do
   describe 'asked to create_zone_version for ip_address' do
     let(:ip_address) { stub }
 
-    it 'should clone current zone version' do
-      zone.expects(:clone_current_zone_version)
+    it 'should clone current zone version, delete a records' do
+      a_records = stub
+      zone.expects(:clone_current_zone_version).returns stub(a_records: a_records)
+      session.expects(:delete_a_records).with(zone_id, a_records)
+
       @domain.create_zone_version ip_address
     end
 
