@@ -11,6 +11,10 @@ module HerokuGandiDns
       @ips = []
       resolver.each_address { |ip| @ips << ip.to_string }
     end
+
+    def ip_address
+      ips.first
+    end
   end
 
 end

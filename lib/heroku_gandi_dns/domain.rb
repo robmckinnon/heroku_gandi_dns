@@ -1,5 +1,4 @@
 require 'forwardable'
-require_relative 'gandi_api'
 require_relative 'zone'
 
 module HerokuGandiDns
