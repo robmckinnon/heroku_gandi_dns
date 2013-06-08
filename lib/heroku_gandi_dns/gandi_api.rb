@@ -29,17 +29,23 @@ module HerokuGandiDns
     end
 
     def record_list zone_id, version_id
-      @api.domain.zone.record.list(zone_id, version_id)
+      begin
+        @api.domain.zone.record.list(zone_id, version_id)
+      rescue Exception => e
+        puts e.to_s
+        []
+      end
     end
 
     def set_zone_version zone_id, version_id
-      @api.domain.zone.version.set(apikey, zone_id, version_id)
+      puts 'set version ' + version_id.to_s
+      @api.domain.zone.version.set(zone_id, version_id)
     end
 
     # returns new zone version id
-    def clone_current_zone_version zone_id
-      zone_info = @api.domain.zone.clone(zone_id)
-      zone_info.version
+    def clone_current_zone_version zone_id,
+      version_id = @api.domain.zone.version.new_version(zone_id)
+      version_id
     end
 
     def delete_records zone_id, version_id, record_ids
@@ -50,7 +56,7 @@ module HerokuGandiDns
 
     def add_a_record zone_id, version_id, ip_address, ttl_secs
       params = { name: '@', type: 'A', value: ip_address, ttl: ttl_secs }
-      domain.zone.record.add zone_id, version_id, params
+      @api.domain.zone.record.add zone_id, version_id, params
     end
 
   end
