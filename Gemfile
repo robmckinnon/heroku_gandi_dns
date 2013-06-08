@@ -5,6 +5,7 @@ group :test do
   gem 'guard-minitest'
   gem 'turn'
   gem 'mocha'
+  gem 'simplecov', :require => false
 end
 gem 'coveralls', require: false
 

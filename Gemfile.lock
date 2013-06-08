@@ -73,4 +73,5 @@ DEPENDENCIES
   morph (>= 0.3.6)
   net-dns
   rake
+  simplecov
   turn
