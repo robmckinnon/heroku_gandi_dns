@@ -19,13 +19,16 @@ module HerokuGandiDns
 
     def create_zone_version ip_address
       zone_version = @zone.clone_current_zone_version
-
-      delete_a_records zone_version
-
-      add_a_record zone_version, ip_address
+      set_a_record zone_version, ip_address
+      zone_version
     end
 
     private
+
+    def set_a_record zone_version, ip_address
+      delete_a_records(zone_version)
+      add_a_record(zone_version, ip_address)
+    end
 
     def delete_a_records zone_version
       @session.delete_records(zone_id, zone_version.version_id, zone_version.a_record_ids)

@@ -33,13 +33,15 @@ describe HerokuGandiDns::Domain do
     let(:ip_address) { stub }
     let(:version_id) { stub }
 
-    it 'should clone current zone version, delete a records, add new a record' do
-      zone.expects(:clone_current_zone_version).returns stub(version_id: version_id, a_record_ids: [123])
+    it 'should clone current, delete A records, add new A record, return zone_version' do
+      zone_version = stub(version_id: version_id, a_record_ids: [123])
+
+      zone.expects(:clone_current_zone_version).returns zone_version
       session.expects(:delete_records).with(zone_id, version_id, [123])
 
       session.expects(:add_a_record).with(zone_id, version_id, ip_address)
 
-      @domain.create_zone_version ip_address
+      @domain.create_zone_version(ip_address).must_equal zone_version
     end
 
   end
