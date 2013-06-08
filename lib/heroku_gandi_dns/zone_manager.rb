@@ -8,6 +8,7 @@ module HerokuGandiDns
     end
 
     def zone_version_for_ip ip_address
+      puts 'ip_address ' + ip_address.to_s
       zone_versions.detect { |z| z.ip_address == ip_address }
     end
 
