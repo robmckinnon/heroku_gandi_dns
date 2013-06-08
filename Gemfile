@@ -5,8 +5,8 @@ group :test do
   gem 'guard-minitest'
   gem 'turn'
   gem 'mocha'
-  gem 'coveralls', require: false
 end
+gem 'coveralls', require: false
 
 gem 'morph', '>= 0.3.6'
 gem 'net-dns'
