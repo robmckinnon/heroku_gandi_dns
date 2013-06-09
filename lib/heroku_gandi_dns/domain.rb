@@ -17,7 +17,7 @@ module HerokuGandiDns
     end
 
     def create_zone_version ip_address, ttl_secs
-      zone_version = @zone.clone_current_zone_version
+      zone_version = @zone.available_zone_version
       set_a_record zone_version, ip_address, ttl_secs
       zone_version
     end
